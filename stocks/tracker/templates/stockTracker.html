@@ -8,7 +8,7 @@ Price Tracker
 </style>
 {% endblock %}
 {% block body %}
-<div class="max-w-4xl mx-auto bg-white p-8 m-6 rounded-lg shadow-md">
+<div class="max-w-6xl mx-auto flex flex-col bg-white p-8 m-6 rounded-lg shadow-md">
     <h2 class="text-lg font-semibold mb-4">Live Stock Information</h2>
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
@@ -17,29 +17,32 @@ Price Tracker
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S. No</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prev. Close</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prev Close</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Open</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Market Cap</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volume</th>
+                    {% comment %} <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Market Cap</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th> {% endcomment %}
                     <th scope="col" class="relative px-6 py-3"></th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+                {% for data in data %}
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">1</td>
-                    <td class="px-6 py-4 whitespace-nowrap">HDFC</td>
-                    <td class="px-6 py-4 whitespace-nowrap">667</td>
-                    <td class="px-6 py-4 whitespace-nowrap">670.45</td>
-                    <td class="px-6 py-4 whitespace-nowrap">675</td>
-                    <td class="px-6 py-4 whitespace-nowrap">-3.30</td>
-                    <td class="px-6 py-4 whitespace-nowrap">1.35T</td>
-                    <td class="px-6 py-4 whitespace-nowrap">751245</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ forloop.counter }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.price }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.prev_close }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.open }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.market_cap }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ data.volume }}</td>
+                    {% comment %} <td class="px-6 py-4 whitespace-nowrap">1.35T</td>
+                    <td class="px-6 py-4 whitespace-nowrap">751245</td> {% endcomment %}
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a href="#" class="text-primary hover:text-primary-dark">View</a>
                     </td>
                 </tr>
-                <!-- Add more rows as needed -->
+                {% endfor %}
             </tbody>
         </table>
     </div>
