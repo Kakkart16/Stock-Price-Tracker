@@ -61,8 +61,8 @@ class StockConsumer(AsyncWebsocketConsumer):
         )
 
     # Receive message from room group
-    async def stock_update(self, event):
+    async def send_stock_update(self, event):
         message = event["message"]
 
         # Send message to WebSocket
-        await self.send(text_data=json.dumps({"message": message}))
+        await self.send(text_data=json.dumps(message))

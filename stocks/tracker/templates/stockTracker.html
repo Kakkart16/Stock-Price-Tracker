@@ -25,7 +25,7 @@ Price Tracker
                     <th scope="col" class="relative px-6 py-3"></th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            {% comment %} <tbody class="bg-white divide-y divide-gray-200">
                 {% for data in data %}
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">{{ forloop.counter }}</td>
@@ -41,6 +41,24 @@ Price Tracker
                     </td>
                 </tr>
                 {% endfor %}
+            </tbody> {% endcomment %}
+            <tbody>
+                {% for key, value in data.items %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ forloop.counter }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ key }}</td>
+                    <td id="{{key}}_price" class="px-6 py-4 whitespace-nowrap">{{ value.price }}</td>
+                    <td id="{{key}}_prevClose" class="px-6 py-4 whitespace-nowrap">{{ value.prev_close }}</td>
+                    <td id="{{key}}_open" class="px-6 py-4 whitespace-nowrap">{{ value.open }}</td>
+                    <td id="{{key}}_change" class="px-6 py-4 whitespace-nowrap" style="color: {% if value.change >= 0 %} green {% else %} red {% endif %};">{{ value.change|floatformat:"4" }}</td>
+                    <td id="{{key}}_marketCap" class="px-6 py-4 whitespace-nowrap">{{ value.market_cap }}</td>
+                    <td id="{{key}}_volume" class="px-6 py-4 whitespace-nowrap">{{ value.volume }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="#" class="text-primary hover:text-primary-dark">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
             </tbody>
         </table>
     </div>
@@ -61,6 +79,30 @@ Price Tracker
         '?' +
         queryString
     );
+
+    stockSocket.onmessage = function (e) {
+        console.log(e.data);
+        const data = JSON.parse(e.data);
+        console.log(data);
+        Object.keys(data).forEach(function(key) {
+            const stockData = data[key];
+            const priceCell = document.getElementById(`${key}_price`);
+            const prevCloseCell = document.getElementById(`${key}_prevClose`);
+            const openCell = document.getElementById(`${key}_open`);
+            const changeCell = document.getElementById(`${key}_change`);
+            const marketCapCell = document.getElementById(`${key}_marketCap`);
+            const volumeCell = document.getElementById(`${key}_volume`);
+    
+            priceCell.textContent = stockData.price;
+            prevCloseCell.textContent = stockData.prev_close;
+            openCell.textContent = stockData.open;
+            changeCell.textContent = stockData.change.toFixed(4);
+            changeCell.style.color = stockData.change >= 0 ? 'green' : 'red';
+            marketCapCell.textContent = stockData.market_cap;
+            volumeCell.textContent = stockData.volume;
+        });
+        
+      };
 </script>
 {% endblock %}
 {% block js %}

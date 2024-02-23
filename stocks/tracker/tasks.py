@@ -47,7 +47,7 @@ def update_stock(self, selected_stocks):
 
     loop.run_until_complete(channel_layer.group_send("stock_track", {
         'type': 'send_stock_update',
-        'message': data,
+        'message': dataX,
     }))
     
     return 'done'    

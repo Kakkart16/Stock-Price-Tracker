@@ -2,7 +2,14 @@ env
 .idx
 *.log
 *.pot
-*.pyc
-__pycache__
-db.sqlite3
+stocks/*.pyc
+stocks/__pycache__
 media
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.sqlite3
+stocks/db.sqlite3
+
+.vscode

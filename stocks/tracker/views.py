@@ -72,4 +72,4 @@ def stockTracker(request):
 
     # print(data)
     
-    return render(request, 'stockTracker.html', {'data': data, 'room_name': "track"})
+    return render(request, 'stockTracker.html', {'data': dataX, 'room_name': "track"})
