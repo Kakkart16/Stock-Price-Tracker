@@ -53,7 +53,8 @@ def stockTracker(request):
             'prev_close': quote["previousClose"], 
             'open': quote["open"],
             'market_cap': quote["marketCap"],
-            'volume': quote["volume"],          
+            'volume': quote["volume"],  
+            'change': quote['currentPrice'] - quote['previousClose']       
         }
         thread = Thread(target = lambda q, arg1: q.put({selected_stocks[i]: details}), args = (que, selected_stocks[i]))
         thread_list.append(thread)
