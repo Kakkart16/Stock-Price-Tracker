@@ -22,7 +22,7 @@ Price Tracker
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th> 
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Market Cap</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volume</th>
-                    <th scope="col" class="relative px-6 py-3"></th>
+                    {% comment %} <th scope="col" class="relative px-6 py-3"></th> {% endcomment %}
                 </tr>
             </thead>
             {% comment %} <tbody class="bg-white divide-y divide-gray-200">
@@ -53,9 +53,9 @@ Price Tracker
                     <td id="{{key}}_change" class="px-6 py-4 whitespace-nowrap" style="color: {% if value.change >= 0 %} green {% else %} red {% endif %};">{{ value.change|floatformat:"4" }}</td>
                     <td id="{{key}}_marketCap" class="px-6 py-4 whitespace-nowrap">{{ value.market_cap }}</td>
                     <td id="{{key}}_volume" class="px-6 py-4 whitespace-nowrap">{{ value.volume }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    {% comment %} <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a href="#" class="text-primary hover:text-primary-dark">View</a>
-                    </td>
+                    </td> {% endcomment %}
                 </tr>
                 {% endfor %}
 

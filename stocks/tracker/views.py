@@ -6,6 +6,8 @@ import time
 import queue
 from threading import Thread
 import json
+from asgiref.sync import sync_to_async
+
 
 
 def home(request):
@@ -24,8 +26,17 @@ def home(request):
 #     return render(request, 'stockTracker.html')
 
 
-
+@sync_to_async
+def checkAuthenticated(request):
+    if not request.user.is_authenticated:
+        return False
+    else:
+        return True
+    
 def stockTracker(request):
+    is_loginned = await checkAuthenticated(request)
+    if not is_loginned:
+        return HttpResponse("Login First")
     selected_stocks = request.GET.getlist('stock')    
     dataX = {}
     # for stock in selected_stocks:
