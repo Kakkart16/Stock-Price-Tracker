@@ -45,9 +45,9 @@ Price Tracker
         </table>
     </div>
 </div>
-
+{% comment %} {{ room_name|json_script:"room-name" }} {% endcomment %}
 <script>
-    // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    {% comment %} const roomName = JSON.parse(document.getElementById('room-name').textContent); {% endcomment %}
     const roomName = "{{ room_name }}"
     var queryString = window.location.search;
     queryString = queryString.substring(1);

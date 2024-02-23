@@ -4,6 +4,8 @@ import yfinance as yf
 import time
 import queue
 from threading import Thread
+from channels.layers import get_channel_layer
+import asyncio
 
 @shared_task(bind = True)
 def update_stock(self, selected_stocks):
@@ -36,4 +38,16 @@ def update_stock(self, selected_stocks):
         
     # print(dataX)
     data = [value for value in dataX.values()]
+    
+     # send data to group
+    channel_layer = get_channel_layer()
+    loop = asyncio.new_event_loop()
+
+    asyncio.set_event_loop(loop)
+
+    loop.run_until_complete(channel_layer.group_send("stock_track", {
+        'type': 'send_stock_update',
+        'message': data,
+    }))
+    
     return 'done'    

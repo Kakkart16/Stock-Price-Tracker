@@ -12,13 +12,13 @@ app.conf.update(timezone = 'Asia/Kolkata')
 
 app.config_from_object(settings, namespace='CELERY')
 
-app.conf.beat_schedule = {
-    'every-20-seconds' : {
-        'task': 'tracker.tasks.update_stock',
-        'schedule': 20,
-        'args': (['RELIANCE.NS', 'BAJAJFINSV.NS'],)
-    },
-}
+# app.conf.beat_schedule = {
+#     'every-20-seconds' : {
+#         'task': 'tracker.tasks.update_stock',
+#         'schedule': 20,
+#         'args': (['RELIANCE.NS', 'BAJAJFINSV.NS'],)
+#     },
+# }
 
 app.autodiscover_tasks()
 
