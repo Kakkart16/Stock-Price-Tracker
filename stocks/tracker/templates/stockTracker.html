@@ -33,7 +33,7 @@ Price Tracker
                     <td class="px-6 py-4 whitespace-nowrap">{{ data.price }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ data.prev_close }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ data.open }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap" style="color: {% if data.change >= 0 %}green{% else %}red{% endif %};">{{ data.change|floatformat:"4" }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap" style="color: {% if data.change >= 0 %} green {% else %} red {% endif %};">{{ data.change|floatformat:"4" }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ data.market_cap }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ data.volume }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -46,8 +46,25 @@ Price Tracker
     </div>
 </div>
 
+<script>
+    // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const roomName = "{{ room_name }}"
+    var queryString = window.location.search;
+    queryString = queryString.substring(1);
+    console.log(queryString)
+    const stockSocket = new WebSocket(
+        "ws://" + 
+        window.location.host +
+        '/ws/stock/' +
+        roomName +
+        '/' +
+        '?' +
+        queryString
+    );
+</script>
 {% endblock %}
 {% block js %}
 <script>
+
 </script>
 {% endblock %}
