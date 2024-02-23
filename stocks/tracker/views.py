@@ -1,11 +1,11 @@
 from django.shortcuts import render
 import yahoo_fin.stock_info as si
+from django.http.response import HttpResponse
+
 # from yahoo_fin import stock_info
 import yfinance as yf
-import time
 import queue
 from threading import Thread
-import json
 from asgiref.sync import sync_to_async
 
 
@@ -33,7 +33,7 @@ def checkAuthenticated(request):
     else:
         return True
     
-def stockTracker(request):
+async def stockTracker(request):
     is_loginned = await checkAuthenticated(request)
     if not is_loginned:
         return HttpResponse("Login First")
@@ -82,5 +82,4 @@ def stockTracker(request):
     data = [value for value in dataX.values()]
 
     # print(data)
-    
     return render(request, 'stockTracker.html', {'data': dataX, 'room_name': "track"})
