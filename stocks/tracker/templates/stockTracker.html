@@ -93,6 +93,11 @@ Price Tracker
             const marketCapCell = document.getElementById(`${key}_marketCap`);
             const volumeCell = document.getElementById(`${key}_volume`);
     
+            if (!priceCell || !prevCloseCell || !openCell || !changeCell || !marketCapCell || !volumeCell) {
+                console.error(`One or more cells not found for stock: ${key}`);
+                return;
+            }
+
             priceCell.textContent = stockData.price;
             prevCloseCell.textContent = stockData.prev_close;
             openCell.textContent = stockData.open;
