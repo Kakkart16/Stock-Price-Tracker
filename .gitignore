@@ -1,5 +1,5 @@
 env
-.idx
+# .idx
 *.log
 *.pot
 stocks/*.pyc
