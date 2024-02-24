@@ -12,7 +12,7 @@ class StockConsumer(AsyncWebsocketConsumer):
     
     @sync_to_async
     def addToCeleryBeat(self, stock):
-        task = PeriodicTask.objects.filter(name="every-20-seconds")
+        task = PeriodicTask.objects.filter(name="every-30-seconds")
         if len(task)>0:
             task = task.first()
             args = json.loads(task.args)
@@ -23,8 +23,8 @@ class StockConsumer(AsyncWebsocketConsumer):
             task.args = json.dumps([args])
             task.save()
         else:
-            schedule, created = IntervalSchedule.objects.get_or_create(every=20, period = IntervalSchedule.SECONDS)
-            task = PeriodicTask.objects.create(interval = schedule, name='every-20-seconds', task="tracker.tasks.update_stock", args = json.dumps([stock]))
+            schedule, created = IntervalSchedule.objects.get_or_create(every=30, period = IntervalSchedule.SECONDS)
+            task = PeriodicTask.objects.create(interval = schedule, name='every-30-seconds', task="tracker.tasks.update_stock", args = json.dumps([stock]))
 
     @sync_to_async    
     def addToStockDetail(self, stock):
@@ -57,7 +57,7 @@ class StockConsumer(AsyncWebsocketConsumer):
     def helper_func(self):
         user = self.scope["user"]
         stocks = StockDetail.objects.filter(user__id = user.id)
-        task = PeriodicTask.objects.get(name = "every-20-seconds")
+        task = PeriodicTask.objects.get(name = "every-30-seconds")
         args = json.loads(task.args)
         args = args[0]
         for i in stocks:
